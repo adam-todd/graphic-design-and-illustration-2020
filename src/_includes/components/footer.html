@@ -1,0 +1,123 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-lg-12 fixed-bottom pb-3">
+      <footer>
+        <div class="d-inline ml-1"><a class="footer-link" href="https://www.ljmu.ac.uk/about-us/faculties/faculty-of-arts-professional-and-social-studies/liverpool-school-of-art-and-design">Liverpool School of Art & Design &copy; 2020</a></div>
+      </footer>
+    </div>
+  </div>
+</div><!-- end container -->
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.0.min.js" integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+<script src="{{site.base_url}}/assets/js/tinysort.js"></script>
+
+<!-- Tootip stuff -->
+<script src="{{site.base_url}}/assets/js/tooltipster.bundle.min.js"></script>
+<script src="{{site.base_url}}/assets/js/tooltipster-follower.min.js"></script>
+<script>
+    $(document).ready(function(){
+
+      $('.tooltipster').tooltipster({
+             theme: 'gdi-tooltip',
+             touchDevices: false,
+             delay: 600,
+             plugins: ['follower']
+          });
+
+      $("div.content").hide().fadeIn( "slow", function() {
+              // Animation complete
+      });
+
+      $( "a.menu-toggle").on( "click", function(event) {
+        event.preventDefault();
+        $( "div.main-menu" ).fadeToggle( "fast", function() {
+                // Animation complete
+        });
+        $( "div.side-menu").fadeToggle( "fast", function() {
+                // Animation complete
+        });
+        $( "a.menu-toggle").toggleClass("menu-unselected");
+        $( "a.menu-toggle").toggleClass("menu-selected");
+      });
+
+      $("a.course-sorter").on( "click", function(event){
+        event.preventDefault();
+        removeCourseNavigationFilterClass();
+        removeStudentNavigationFilterClass();
+        $(this).addClass('filter');
+        c = $(this).data("tag");
+        if(c == "A-Z"){
+          $(this).data("tag","Z-A");
+          $(this).text("Z-A");
+          tinysort('ul.student-list>li>a',{selector:'span:nth-child(2)', order:'desc'});
+        }else if(c == "Z-A"){
+          $(this).data("tag","A-Z");
+          $(this).text("A-Z");
+          tinysort('ul.student-list>li>a',{selector:'span:nth-child(2)'});
+        }
+      });
+
+      $( "a.course-filter" ).on( "click", function(event) {
+        event.preventDefault();
+        removeCourseNavigationFilterClass();
+        removeStudentNavigationFilterClass();
+        c = $(this).data("tag");
+        $(this).addClass('filter');
+        selectCourse(c);
+      });
+
+      $( "a.tag-filter" ).on( "click", function(event) {
+        event.preventDefault();
+        $( "div.main-menu" ).fadeIn( "fast", function() {
+                // Animation complete
+        });
+        $( "div.side-menu").fadeIn( "fast", function() {
+                // Animation complete
+        });
+        $( "a.menu-toggle").addClass("menu-unselected");
+        $( "a.menu-toggle").addClass("menu-selected");
+        removeCourseNavigationFilterClass();
+        removeStudentNavigationFilterClass();
+        c = $(this).data("tag");
+        $("a.course-filter[data-tag='"+c+"']").addClass("filter");
+        selectCourse(c);
+      });
+
+      function selectCourse(c){
+        if(c == "All"){
+          //re-order alphabetically
+          tinysort('ul.student-list>li>a',{selector:'span:nth-child(2)'});
+        }else if(c == "Randomise"){
+          //re-order random
+          tinysort('ul.student-list>li>a',{order:'rand'});
+        }else{
+          $.each($('a.navigation'), function(index, value) {
+              if($(this).data("tags") != null){
+                var i;
+                var my_array = $(this).data("tags");
+                var arr = my_array.split(",");
+                for (i = 0; i < arr.length; ++i) {
+                  if(arr[i] == c){
+                    $(this).addClass('filter');
+                  }
+                }
+              }
+            });
+            tinysort('ul.student-list>li', {selector:'a',attr:'class',order:'desc'});
+          }
+      }
+      function removeCourseNavigationFilterClass(f){
+        $("a.course-filter").removeClass('filter');
+        $("a.course-sorter").removeClass('filter');
+      }
+      function removeStudentNavigationFilterClass(){
+        $("a.navigation").removeClass('filter');
+      }
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,102 @@
+{% assign content = site.data.students[page.dataFile] %}
+
+{% include components/header.html %}
+    <div class="container">
+      <div class="row">
+        <div class="content col-12  pt-5 pb-5">
+          {% assign video = content.video %}
+
+          {% if video != null %}
+
+            {% if content.video-ratio == null%}
+              {% assign r = "16by9" %}
+            {% else %}
+              {% assign r = content.video-ratio %}
+            {% endif %}
+
+          <div class="embed-responsive embed-responsive-{{r}}">
+            <iframe title="{{content.video-title}}" class="embed-responsive-item" src="{{video}}" allow="autoplay; fullscreen" allowfullscreen></iframe>
+          </div>
+          {% else %}
+          {% endif %}
+
+          {% assign images = content.images %}
+          {% if images != null %}
+            {% for image in images%}
+
+                {% if forloop.index == 1 %}
+
+                  {% if video == null %}
+                    <div class="row">
+                      <div class="col">
+                        <img src="{{ site.base_url }}/assets/images/{{image.name}}" alt="{{image.description}}" class="img-fluid tooltipster" title="{{image.description}}">
+                      </div>
+                    </div>
+                    <div class="row">
+                    {% else%}
+                    <div class="row">
+                      <div class="col-md-6 pt-3">
+                        <img src="{{ site.base_url }}/assets/images/{{image.name}}" alt="{{image.description}}" class="img-fluid tooltipster" title="{{image.description}}">
+                      </div>
+                {% endif %}
+                {% else %}
+                  {% if image.name != null %}
+                <div class="col-md-6 pt-3">
+                  <img src="{{ site.base_url }}/assets/images/{{image.name}}" alt="{{image.description}}" class="img-fluid tooltipster" title="{{image.description}}">
+                </div>
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+              </div>
+          {% endif %}
+          <div class="row">
+              <div class="col-md-6 pt-3">
+                  <h2>{{ page.title }}</h2>
+                  {% assign title = content.title %}
+                  {% if title %}
+                      <h3>{{ title }}</h3>
+                  {% endif %}
+                  {% assign description = content.description %}
+                  {% if description %}
+                      {{ description | markdownify}}
+                  {% endif %}
+                  {% assign url = content.url %}
+                  {% if url %}
+                      <a href="{{ url }}">{{ url }}</a>
+                  {% endif %}
+                  {% if content.tags %}
+                    <p class="pt-3">
+                      {% assign data-tags = content.tags %}
+                      {% assign my_array = data-tags | split:"," %}
+                      {% for tag in my_array %}
+                          <span><a class="tag-filter" data-tag="{{ tag | replace: " ", "-" | downcase}}" href="{{site.base_url}}/#{{ tag | replace: " ", "-" | downcase}}">#{{ tag }}</a></span>
+                      {% endfor %}
+                    </p>
+                  {% endif %}
+                  </div>
+              </div>
+              {% for student in site.data.navigation %}
+
+                {% if page.url contains student.link %}
+                  {% if forloop.last %}
+                    {% assign p = forloop.index | minus:2 %}
+                    {% assign previous_student = site.data.navigation[p]%}
+                    {% assign next_student = site.data.navigation[0]%}
+                {%else%}
+                    {% assign p = forloop.index | minus:2 %}
+                    {% assign n = forloop.index %}
+                    {% assign previous_student = site.data.navigation[p]%}
+                    {% assign next_student = site.data.navigation[n]%}
+                  {% endif%}
+                  <div class="pt-3">
+                    <a href="{{site.base_url}}/{{previous_student.link}}">Previous:{{previous_student.name}}</a>
+                    <a href="{{site.base_url}}/{{next_student.link}}">Next:{{next_student.name}}</a>
+                  </div>
+                {% endif%}
+              {% endfor%}
+          </div>
+
+
+    </div>
+    </div><!-- end container -->
+{% include components/footer.html %}

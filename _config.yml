@@ -1,0 +1,34 @@
+description: Degree Show 2020 website for BA (Hons) Graphic Design and Illustration, Liverpool School of Art and Design, Liverpool John Moores University.
+author: Liverpool School of Art and Design, LJMU
+# local base URL
+base_url: "http://127.0.0.1:4000"
+# live base URL
+base_urlxx: "http://graphics-lsad.co.uk/2020"
+
+# Disable custom plugins, and ignore symbolic links.
+safe: false
+baseurl: ""
+# Site source
+source: src
+
+# Site bundle dir
+destination: public
+
+encoding: utf-8
+
+permalink: pretty
+
+sass:
+  sass_dir: _scss
+  style: :compressed
+
+assets:
+  sources:
+
+url: "http://graphics-lsad.co.uk/2020" # the base hostname & protocol for your site
+
+plugins:
+  - jekyll-sitemap
+
+compress_html:
+   blanklines: true

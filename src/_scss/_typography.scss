@@ -1,0 +1,152 @@
+/*!
+ * Web Fonts from Fontspring.com
+ *
+ * All OpenType features and all extended glyphs have been removed.
+ * Fully installable fonts can be purchased at http://www.fontspring.com
+ *
+ * The fonts included in this stylesheet are subject to the End User License you purchased
+ * from Fontspring. The fonts are protected under domestic and international trademark and
+ * copyright law. You are prohibited from modifying, reverse engineering, duplicating, or
+ * distributing this font software.
+ *
+ * (c) 2010-2020 Fontspring
+ *
+ *
+ *
+ *
+ * The fonts included are copyrighted by the vendor listed below.
+ *
+ * Vendor:      A is for...
+ * License URL: https://www.fontspring.com/licenses/a-is-for/webfont
+ *
+ *
+ */
+@font-face{
+  font-family: 'Knif Mono Regular';
+  src:  url('fonts/aa_knif-mono-webfont.woff2') format('woff2'),
+        url('fonts/aa_knif-mono-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face{
+  font-family: 'Knif Mono Italic';
+  src: url('fonts/aa_knif-mono_italic-webfont.woff2') format('woff2'),
+       url('fonts/aa_knif-mono_italic-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@mixin knifMonoRegular() {
+  font-family:'Knif Mono Regular';
+}
+
+@mixin knifMonoItalic() {
+  font-family:'Knif Mono Italic';
+}
+
+html {}
+
+body {
+  color: $ga-black;
+  @include knifMonoRegular();
+}
+
+h1,h2,h3,h4,p,a,li{
+  text-transform: uppercase;
+  font-size: rem-calc(12px);
+  line-height: rem-calc(16px);
+
+}
+.tooltipster{
+  cursor: pointer; /* Add a pointer on hover */
+}
+.gdi-tooltip {
+  cursor: pointer; /* Add a pointer on hover */
+  color:$ga-black;
+}
+
+.gdi-tooltip .tooltipster-content {
+  cursor: pointer; /* Add a pointer on hover */
+  text-transform: uppercase;
+  text-align: left;
+  font-family:'Knif Mono Regular';
+  background-color:$ga-white;
+  color:$ga-black;
+  font-size: rem-calc(12px);
+  line-height: rem-calc(16px);
+
+}
+
+a {
+  padding: 0 2px;
+  color: $ga-black;
+  text-decoration: none;
+  &:hover {
+    color: $ga-grey;
+    background-color:$ga-black;
+    text-decoration: none;
+  }
+}
+
+ul, ol{
+  list-style-position: inside;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li{
+  margin:2px 0;
+  a{
+    display:inline;
+    background-color:$ga-white;
+  }
+}
+
+.filter{
+  color:$ga-white;
+  background-color:$ga-black;
+}
+
+.content{
+  a{
+    background-color:$ga-white;
+  }
+}
+
+.intro{
+  text-align:center;
+  @include knifMonoItalic();
+  p,a{
+    font-size: rem-calc(28px);
+    line-height: rem-calc(30px);
+    text-transform: none;
+  }
+}
+
+.header-title, .footer-link{
+    &:hover {
+      background-color:$ga-white;
+    }
+  }
+
+@include media-breakpoint-up(sm) {
+    h1,h2,h3,h4,p,a,li{
+      text-transform: uppercase;
+      font-size: rem-calc(14px);
+      line-height: rem-calc(18px);
+
+    }
+}
+@include media-breakpoint-up(md) {
+  .intro{
+    p,a{
+      font-size: rem-calc(48px);
+      line-height: rem-calc(50px);
+    }
+    a{
+      background-color:$ga-white;
+    }
+  }
+}
