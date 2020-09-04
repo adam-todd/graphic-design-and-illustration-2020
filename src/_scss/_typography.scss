@@ -58,6 +58,15 @@ h1,h2,h3,h4,p,a,li{
   line-height: rem-calc(16px);
 
 }
+.visually-hidden {
+   clip-path: inset(100%);
+   clip: rect(1px, 1px, 1px, 1px);
+   height: 1px;
+   overflow: hidden;
+   position: absolute;
+   white-space: nowrap;
+   width: 1px;
+}
 .tooltipster{
   cursor: pointer; /* Add a pointer on hover */
 }
